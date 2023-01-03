@@ -1,8 +1,12 @@
 {
-    "name": "VRSample/SpeckleUtils",
+    "name": "VRSample.Interactions",
     "rootNamespace": "VRSample",
     "references": [
-        "GUID:eed1b8b83e2c0074d9e5de2348e3ff72"
+        "GUID:e6adfdc4e436206479f48eafc82f32b5",
+        "GUID:0974e3d3d7d81e146928149497404619",
+        "GUID:d274441ecc3eb3f43b093eec1503d681",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:0f85c4b228372584c93cf3cf0ff105d4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

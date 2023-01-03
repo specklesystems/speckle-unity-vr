@@ -1,0 +1,16 @@
+{
+    "name": "VRSample.SpeckleHelpers",
+    "rootNamespace": "VRSample",
+    "references": [
+        "GUID:e6adfdc4e436206479f48eafc82f32b5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

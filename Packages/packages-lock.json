@@ -1,14 +1,5 @@
 {
   "dependencies": {
-    "com.unity.collab-proxy": {
-      "version": "1.15.18",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.services.core": "1.0.1"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
       "depth": 1,
@@ -17,7 +8,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.15",
+      "version": "3.0.17",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -26,7 +17,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.16",
+      "version": "2.0.17",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -42,29 +33,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.3.0",
+      "version": "1.4.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.nuget.newtonsoft-json": {
-      "version": "3.0.2",
-      "depth": 2,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.services.core": {
-      "version": "1.4.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "com.unity.modules.androidjni": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -94,7 +67,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.1.31",
+      "version": "1.1.33",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -170,11 +143,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.interaction.toolkit": {
-      "version": "2.0.2",
+      "version": "2.0.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.inputsystem": "1.2.0",
+        "com.unity.inputsystem": "1.3.0",
         "com.unity.ugui": "1.0.0",
         "com.unity.xr.core-utils": "2.0.0",
         "com.unity.xr.legacyinputhelpers": "2.1.8",
@@ -185,7 +158,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.legacyinputhelpers": {
-      "version": "2.1.9",
+      "version": "2.1.10",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -208,7 +181,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.oculus": {
-      "version": "3.0.2",
+      "version": "3.2.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -217,22 +190,22 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.openxr": {
-      "version": "1.4.2",
+      "version": "1.5.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.xr.management": "4.0.1",
         "com.unity.xr.legacyinputhelpers": "2.1.2",
-        "com.unity.inputsystem": "1.3.0"
+        "com.unity.inputsystem": "1.4.2"
       },
       "url": "https://packages.unity.com"
     },
     "systems.speckle.speckle-unity": {
-      "version": "https://github.com/specklesystems/speckle-unity.git?path=/Packages/systems.speckle.speckle-unity#unity-to-bim",
+      "version": "https://github.com/specklesystems/speckle-unity.git?path=/Packages/systems.speckle.speckle-unity",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "de1e154065b6b01d210118a32b2f462b7fe3f25d"
+      "hash": "d1a0a6663981194d8df9b201e3ca5422fe4c8278"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

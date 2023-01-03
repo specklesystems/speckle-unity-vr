@@ -2,11 +2,13 @@
     "name": "VRSample.UI",
     "rootNamespace": "VRSample",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:eed1b8b83e2c0074d9e5de2348e3ff72",
-        "GUID:4d43f6160b02d8a4d8819b3033af3330",
+        "GUID:e6adfdc4e436206479f48eafc82f32b5",
+        "GUID:d274441ecc3eb3f43b093eec1503d681",
+        "GUID:50d889142fdf9de4b8501c6eaa4b3225",
         "GUID:2bafac87e7f4b9b418d9448d219b01ab",
-        "GUID:fe685ec1767f73d42b749ea8045bfe43"
+        "GUID:fe685ec1767f73d42b749ea8045bfe43",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
