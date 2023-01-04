@@ -2,7 +2,8 @@
     "name": "VRSample.SpeckleHelpers",
     "rootNamespace": "VRSample",
     "references": [
-        "GUID:e6adfdc4e436206479f48eafc82f32b5"
+        "GUID:e6adfdc4e436206479f48eafc82f32b5",
+        "GUID:fe685ec1767f73d42b749ea8045bfe43"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

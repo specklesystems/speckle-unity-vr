@@ -1,5 +1,6 @@
 using System;
 using Speckle.ConnectorUnity.Components;
+using Speckle.ConnectorUnity.Wrappers.Selection;
 using UnityEngine;
 using VRSample.Speckle_Helpers;
 using VRSample.UI.Controllers;
@@ -9,81 +10,87 @@ namespace VRSample.Interactions
     /// <summary>
     /// Behaviour for performing receive/send interactions with Speckle using <see cref="SelectionController"/>
     /// </summary>
-    [RequireComponent(typeof(SelectionController), typeof(SpeckleReceiver), typeof(VRSender))]
+    [RequireComponent(typeof(SelectionController), typeof(VRReceiver), typeof(VRSender))]
     public class SpeckleInteractionMenu : MonoBehaviour
     {
         private SelectionController uiController;
-        private SpeckleReceiver receiver;
         private VRSender sender;
+        private VRReceiver receiver;
 
         public int streamLimit = 15;
         public int branchLimit = 10;
         public int commitLimit = 10;
+        public GameObject environment;
 
+        private AccountSelection Account => receiver.Receiver.Account;
+        private StreamSelection Stream => receiver.Receiver.Stream;
+        private BranchSelection Branch => receiver.Receiver.Branch;
+        private CommitSelection Commit => receiver.Receiver.Commit;
+        
         void Awake()
         {
             uiController = GetComponent<SelectionController>();
-            receiver = GetComponent<SpeckleReceiver>();
+            receiver = GetComponent<VRReceiver>();
             sender = GetComponent<VRSender>();
         }
 
-        void OnEnable()
+        void Start()
         {
             FocusStreamSelection();
-            receiver.Stream.StreamsLimit = streamLimit;
-            receiver.Branch.BranchesLimit = branchLimit;
-            receiver.Branch.CommitsLimit = commitLimit;
+            Stream.StreamsLimit = streamLimit;
+            Branch.BranchesLimit = branchLimit;
+            Branch.CommitsLimit = commitLimit;
         }
 
         private void FocusAccountSelection()
         {
             void RefreshAction()
             {
-                receiver.Account.RefreshOptions();
+                Account.RefreshOptions();
                 FocusAccountSelection();
             }
             SetupNavigation(RefreshAction, Application.Quit, "Exit");
-            uiController.GenerateOptions(receiver.Account, FocusStreamSelection);
+            uiController.GenerateOptions(Account, FocusStreamSelection);
         }
     
         private void FocusStreamSelection()
         {
             void RefreshAction()
             {
-                receiver.Stream.RefreshOptions();
+                Stream.RefreshOptions();
                 FocusStreamSelection();
             }
             SetupNavigation(RefreshAction, FocusAccountSelection, "Accounts");
-            uiController.GenerateOptions(receiver.Stream, FocusBranchSelection);
+            uiController.GenerateOptions(Stream, FocusBranchSelection);
         }
     
         private void FocusBranchSelection()
         {
             void RefreshAction()
             {
-                receiver.Branch.RefreshOptions();
+                Branch.RefreshOptions();
                 FocusBranchSelection();
             }
             SetupNavigation(RefreshAction, FocusStreamSelection, "Streams");
-            uiController.GenerateOptions(receiver.Branch, FocusCommitSelection);
+            uiController.GenerateOptions(Branch, FocusCommitSelection);
         }
     
         private void FocusCommitSelection()
         {
             void RefreshAction()
             {
-                receiver.Commit.RefreshOptions();
+                Commit.RefreshOptions();
                 FocusCommitSelection();
             }
             SetupNavigation(RefreshAction, FocusBranchSelection, "Branches");
             uiController.ClearOptionViews();
             uiController.CreateSendView(() =>
             {
-                StartCoroutine(sender.ConvertAndSend(receiver.Account.Client, receiver.Stream.Selected, receiver.Branch.Selected));
+                StartCoroutine(sender.ConvertAndSend(environment, Account.Client, Stream.Selected,Branch.Selected));
             });
-            uiController.CreateOptionViews(receiver.Commit, () =>
+            uiController.CreateOptionViews(Commit, () =>
             {
-                StartCoroutine(receiver.ReceiveAndConvertRoutine(receiver, "Test"));
+                StartCoroutine(receiver.ReceiveRoutine(environment.transform));
             });
         }
 

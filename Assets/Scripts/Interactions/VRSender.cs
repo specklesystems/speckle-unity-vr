@@ -17,7 +17,6 @@ namespace VRSample.Speckle_Helpers
     [RequireComponent(typeof(RecursiveConverter))]
     public class VRSender : MonoBehaviour
     {
-        public GameObject environment;
         private RecursiveConverter converter;
         private CancellationTokenSource tokenSource;
         void Awake()
@@ -25,7 +24,7 @@ namespace VRSample.Speckle_Helpers
             converter = GetComponent<RecursiveConverter>();
         }
         
-        public IEnumerator ConvertAndSend(Client client, Stream stream, Branch branch)
+        public IEnumerator ConvertAndSend(GameObject environment, Client client, Stream stream, Branch branch)
         {
             Base b = converter.RecursivelyConvertToSpeckle(environment, _ => true);
             yield return null;
