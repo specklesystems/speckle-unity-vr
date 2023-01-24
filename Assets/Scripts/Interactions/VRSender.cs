@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Speckle.ConnectorUnity.Components;
@@ -26,8 +27,20 @@ namespace VRSample.Speckle_Helpers
         
         public IEnumerator ConvertAndSend(GameObject environment, Client client, Stream stream, Branch branch)
         {
-            Base b = converter.RecursivelyConvertToSpeckle(environment, _ => true);
-            yield return null;
+            //Convert one (top level) object per coroutine update
+            List<Base> convertedRootObjects = new List<Base>();
+            foreach (Transform rootObject in environment.transform)
+            {
+                converter.RecurseTreeToSpeckle(rootObject.gameObject, 
+                    converter.ConverterInstance.CanConvertToSpeckle, 
+                    convertedRootObjects);
+                yield return null;
+            }
+            
+            Base b = new Base()
+            {
+                ["@objects"] = convertedRootObjects,
+            };
 
             Task.Run(async () =>
             {

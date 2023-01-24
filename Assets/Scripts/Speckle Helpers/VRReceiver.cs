@@ -48,6 +48,8 @@ namespace VRSample.Speckle_Helpers
                 Flatten(rootMember.Value, objectsToConvertThisFrame);
                 foreach (var so in objectsToConvertThisFrame)
                 {
+                    yield return null;
+
                     var converted = Receiver.Converter.RecursivelyConvertToNative(so, null);
 
                     //Skip empties
@@ -55,17 +57,22 @@ namespace VRSample.Speckle_Helpers
 
                     GameObject go = ObjectFactory.CreateGameObject("Interactable", typeof (Rigidbody), typeof (XRGrabInteractable));
                     go.transform.SetParent(parent);
+                    
+                    Rigidbody rb = go.GetComponent<Rigidbody>();
+                    rb.drag = 10;
+                    rb.useGravity = false;
+                    
                     IXRInteractable interactable = go.GetComponent<XRGrabInteractable>();
-                    XRInteractionManager.RegisterInteractable(interactable);
                     foreach (var o in converted)
                     {
                         if (o.transform.parent == null) 
                             o.transform.SetParent(interactable.transform);
-                        Collider c = o.AddComponent<MeshCollider>();
+                        MeshCollider c = o.AddComponent<MeshCollider>();
+                        c.convex = true;
                         interactable.colliders.Add(c);
                     }
-                    
-                    yield return null;
+                    XRInteractionManager.UnregisterInteractable(interactable);
+                    XRInteractionManager.RegisterInteractable(interactable);
                 }
             }
         }
