@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Speckle.ConnectorUnity.Components;
 using Speckle.Core.Models;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -55,11 +54,13 @@ namespace VRSample.Speckle_Helpers
                     //Skip empties
                     if (converted.Count <= 0) continue;
 
-                    GameObject go = ObjectFactory.CreateGameObject("Interactable", typeof (Rigidbody), typeof (XRGrabInteractable));
+                    //GameObject go = ObjectFactory.CreateGameObject("Interactable", typeof (Rigidbody), typeof (XRGrabInteractable));
+                    GameObject go = new GameObject("Interactable", typeof (Rigidbody), typeof (XRGrabInteractable));
                     go.transform.SetParent(parent);
                     
                     Rigidbody rb = go.GetComponent<Rigidbody>();
                     rb.drag = 10;
+                    rb.angularDrag = 10;
                     rb.useGravity = false;
                     
                     IXRInteractable interactable = go.GetComponent<XRGrabInteractable>();
