@@ -1,5 +1,5 @@
 {
-    "name": "VRSample.Interactions",
+    "name": "VRSample.InteractionMenu",
     "rootNamespace": "VRSample",
     "references": [
         "GUID:e6adfdc4e436206479f48eafc82f32b5",

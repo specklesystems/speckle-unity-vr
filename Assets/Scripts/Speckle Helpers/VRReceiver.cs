@@ -1,10 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Objects.BuiltElements;
 using Speckle.ConnectorUnity.Components;
 using Speckle.Core.Models;
+using Speckle.Core.Models.GraphTraversal;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using VRSample.Interactions;
+using Debug = UnityEngine.Debug;
 
 namespace VRSample.Speckle_Helpers
 {
@@ -16,8 +20,18 @@ namespace VRSample.Speckle_Helpers
         
         [field: SerializeField]
         public XRInteractionManager XRInteractionManager { get; set; }
+
         
+        [Range(0,100), Min(0)]
+        [Tooltip("The target Time(ms) per frame, for this component to performing blocking conversion in a coroutine")]
+        public long frameTimeBudget = 14;
+        
+        [field: SerializeField]
         public SpeckleReceiver Receiver { get; private set; }
+        
+        [field: SerializeField]
+        public Material SelectionMaterial { get; private set; }
+        
         
         private void Awake()
         {
@@ -28,61 +42,84 @@ namespace VRSample.Speckle_Helpers
         
         public IEnumerator ReceiveRoutine(Transform? parent)
         {
-            Task<Base?> receiveOperation = Task.Run(Receiver.ReceiveAsync);
+            Task<Base> receiveOperation = Task.Run(async () => await Receiver.ReceiveAsync(default));
             
             yield return new WaitUntil(() => receiveOperation.IsCompleted);
 
-            yield return ConvertToXRInteractables(receiveOperation.Result, parent);
+            StartCoroutine(ConvertToXRInteractables(receiveOperation.Result, parent));
         }
         
         /// <summary>
         /// Each coroutine update,
-        /// converts one Level 1 speckle object to native, and parents converted objects to a <see cref="XRInteractablePrefab"/> instance
+        /// converts all "Level 1" speckle object to native, and parents converted objects to an <see cref="XRInteractablePrefab"/> instance
         /// </summary>
-        public IEnumerator ConvertToXRInteractables(Base @base, Transform? parent)
+        public IEnumerator ConvertToXRInteractables(Base root, Transform? parent)
         {
-            foreach (var rootMember in @base.GetMembers())
+            static bool Ignore<T>(TraversalContext tc) => tc.current is not T;
+
+            var timeStamp = Stopwatch.StartNew();
+            foreach (var result in Receiver.Converter.RecursivelyConvertToNative_Enumerable(root, null, tc => Ignore<Collection>(tc) && Ignore<Room>(tc)))
             {
-                List<Base> objectsToConvertThisFrame = new List<Base>();
-                Flatten(rootMember.Value, objectsToConvertThisFrame);
-                foreach (var so in objectsToConvertThisFrame)
+                if(!result.WasSuccessful(out var converted, out var ex))
                 {
-                    yield return null;
-
-                    var converted = Receiver.Converter.RecursivelyConvertToNative(so, null);
-
-                    //Skip empties
-                    if (converted.Count <= 0) continue;
-
-                    //GameObject go = ObjectFactory.CreateGameObject("Interactable", typeof (Rigidbody), typeof (XRGrabInteractable));
-                    GameObject go = new GameObject("Interactable", typeof (Rigidbody), typeof (XRGrabInteractable));
-                    go.transform.SetParent(parent);
-                    
-                    Rigidbody rb = go.GetComponent<Rigidbody>();
-                    rb.drag = 10;
-                    rb.angularDrag = 10;
-                    rb.useGravity = false;
-                    
-                    IXRInteractable interactable = go.GetComponent<XRGrabInteractable>();
-                    foreach (var o in converted)
-                    {
-                        if (o.transform.parent == null) 
-                            o.transform.SetParent(interactable.transform);
-                        MeshCollider c = o.AddComponent<MeshCollider>();
-                        c.convex = true;
-                        interactable.colliders.Add(c);
-                    }
-                    XRInteractionManager.UnregisterInteractable(interactable);
-                    XRInteractionManager.RegisterInteractable(interactable);
+                    Debug.Log($"Failed to convert {result.traversalContext.current}: {ex}", this);
+                    continue;
                 }
+
+                // Only create interactables for "root" level objects
+                if (converted.transform.parent == null)
+                    CreateInteractable(converted, parent);
+
+                bool hasReachedBudget = timeStamp.ElapsedMilliseconds >= frameTimeBudget;
+                if (!hasReachedBudget) continue;
+                
+                timeStamp = Stopwatch.StartNew();
+                yield return null; //return for 1 frame.
             }
         }
 
-        private void Flatten(object? o, IList<Base> outSpeckleObjects)
+        private void CreateInteractable(GameObject converted, Transform? parent)
         {
-            if(o is Base b) outSpeckleObjects.Add(b);
-            if(o is IList l) foreach(object? lo in l) Flatten(lo, outSpeckleObjects);
-            if(o is IDictionary d) foreach(var v in d.Values) Flatten(v, outSpeckleObjects);
+            GameObject go = new GameObject("Interactable", 
+                typeof (Rigidbody), 
+                typeof (XRGrabInteractable), 
+                typeof(SelectableInteractable));
+            converted.transform.GetLocalPositionAndRotation(out Vector3 pos, out Quaternion rot);
+            go.transform.SetLocalPositionAndRotation(pos, rot);
+            go.transform.SetParent(parent, true);
+                    
+            var rb = go.GetComponent<Rigidbody>();
+            {
+                rb.isKinematic = true;
+                rb.drag = 10;
+                rb.angularDrag = 10;
+                rb.useGravity = false;
+            }
+                    
+            var interactable = go.GetComponent<XRGrabInteractable>();
+            {
+                interactable.throwOnDetach = false;
+                interactable.useDynamicAttach = true;
+            }
+            
+            var selectable = go.GetComponent<SelectableInteractable>();
+            {
+                selectable.selectedMaterial = SelectionMaterial;
+            }
+
+
+            foreach (var o in converted.GetComponentsInChildren<Transform>())
+            {
+                if (o.transform.parent == null) 
+                    o.transform.SetParent(interactable.transform);
+                MeshCollider c = o.gameObject.AddComponent<MeshCollider>();
+                c.convex = true;
+                interactable.colliders.Add(c);
+            }
+            XRInteractionManager.UnregisterInteractable((IXRInteractable)interactable);
+            XRInteractionManager.RegisterInteractable((IXRInteractable)interactable);
         }
+
+        
     }
 }

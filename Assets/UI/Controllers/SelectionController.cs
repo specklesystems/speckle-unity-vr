@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Speckle.ConnectorUnity.Utils;
 using Speckle.ConnectorUnity.Wrappers.Selection;
 using Speckle.Core.Credentials;
@@ -163,7 +162,7 @@ namespace VRSample.UI.Controllers
             var stream = selection.BranchSelection.StreamSelection.Selected;
             var c = selection.Options[index];
             string title = $"{c.message} | {c.id}";
-            string description = $"{c.sourceApplication} - {FormatTime(DateTime.Parse(c.createdAt))} ago";
+            string description = $"{c.sourceApplication} - {FormatTime(c.createdAt)} ago";
             string imageurl = $"{selection.Client.ServerUrl}/preview/{stream.id}/commits/{c.id}";
             
             OptionViewComponent optionElement = Instantiate(OptionViewPrefab, ContentTarget);
