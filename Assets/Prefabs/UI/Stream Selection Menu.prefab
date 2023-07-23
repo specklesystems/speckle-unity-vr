@@ -1224,7 +1224,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6cbf9ce4dca0349997d163ec9bce7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ConverterInstance>k__BackingField:
+    rid: 1000
   <AssetCache>k__BackingField: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 1000
+      type: {class: ConverterUnity, ns: Objects.Converter.Unity, asm: Objects.Converter}
+      data:
+        shouldConvertViews: 0
+        <OpaqueMaterialShader>k__BackingField: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+        <TranslucentMaterialShader>k__BackingField: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+        <ModelUnits>k__BackingField: m
 --- !u!114 &4845569517611760702
 MonoBehaviour:
   m_ObjectHideFlags: 0
