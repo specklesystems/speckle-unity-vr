@@ -537,11 +537,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 9134142658244189910, guid: 04d52eb88b320e143850786efdd3061b, type: 3}
   m_PrefabInstance: {fileID: 1877231928}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1421334284 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9134142658244189909, guid: 04d52eb88b320e143850786efdd3061b, type: 3}
-  m_PrefabInstance: {fileID: 1877231928}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1421334285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,59 +582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 1421334284}
-  volumeLayer:
-    m_Bits: 0
-  stopNaNPropagation: 1
-  finalBlitToCameraTarget: 0
-  antialiasingMode: 0
-  temporalAntialiasing:
-    jitterSpread: 0.75
-    sharpness: 0.25
-    stationaryBlending: 0.95
-    motionBlending: 0.85
-    <jitter>k__BackingField: {x: 0, y: 0}
-    m_ResetHistory: 1
-    <sampleIndex>k__BackingField: 0
-  subpixelMorphologicalAntialiasing:
-    quality: 2
-  fastApproximateAntialiasing:
-    fastMode: 0
-    keepAlpha: 0
-  fog:
-    enabled: 1
-    excludeSkybox: 1
-  dithering:
-    m_NoiseTextureIndex: 0
-  debugLayer:
-    lightMeter: {<output>k__BackingField: {fileID: 0}, requested: 0, width: 512, height: 256, showCurves: 1}
-    histogram: {<output>k__BackingField: {fileID: 0}, requested: 0, width: 512, height: 256, channel: 3}
-    waveform: {<output>k__BackingField: {fileID: 0}, requested: 0, exposure: 0.12, height: 256}
-    vectorscope: {<output>k__BackingField: {fileID: 0}, requested: 0, size: 256, exposure: 0.12}
-    frameWidth: 0
-    frameHeight: 0
-    <debugOverlayTarget>k__BackingField: {fileID: 0}
-    <debugOverlayActive>k__BackingField: 0
-    <debugOverlay>k__BackingField: 0
-    overlaySettings:
-      linearDepth: 0
-      motionColorIntensity: 4
-      motionGridSize: 64
-      colorBlindnessType: 0
-      colorBlindnessStrength: 1
-  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 1
-  m_ShowCustomSorter: 1
-  breakBeforeColorGrading: 0
-  m_BeforeTransparentBundles: []
-  m_BeforeStackBundles: []
-  m_AfterStackBundles: []
-  <cameraDepthFlags>k__BackingField: 0
-  <haveBundlesBeenInited>k__BackingField: 0
-  m_Camera: {fileID: 0}
-  m_SettingsUpdateNeeded: 1
-  m_IsRenderingInSceneView: 0
-  m_NaNKilled: 0
 --- !u!114 &1804532912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,6 +594,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3354e8208862c341940152f5340d41a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1872625422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1872625424}
+  - component: {fileID: 1872625423}
+  m_Layer: 0
+  m_Name: Liv
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1872625423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872625422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419ad76f2ffc722478bc67f61f9c32e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stage: {fileID: 1907551038}
+  _stageTransform: {fileID: 0}
+  _HMDCamera: {fileID: 1421334281}
+  _MRCameraPrefab: {fileID: 0}
+  _disableStandardAssets: 0
+  _spectatorLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _excludeBehaviours:
+  - AudioListener
+  - Collider
+  - SteamVR_Camera
+  - SteamVR_Fade
+  - SteamVR_ExternalCamera
+  _fixPostEffectsAlpha: 1
+--- !u!4 &1872625424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872625422}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1877231928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1429,6 +1430,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04d52eb88b320e143850786efdd3061b, type: 3}
+--- !u!4 &1907551038 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9134142656768682068, guid: 04d52eb88b320e143850786efdd3061b, type: 3}
+  m_PrefabInstance: {fileID: 1877231928}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2066820608
 GameObject:
   m_ObjectHideFlags: 0

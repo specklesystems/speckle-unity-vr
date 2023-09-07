@@ -14,9 +14,9 @@ namespace VRSample.Interactions
 
         internal void OnEnable()
         {
-            var interactable = GetComponent<IXRHoverInteractable>();
-            interactable.hoverEntered.AddListener(Select);
-            interactable.hoverExited.AddListener(Deselect);
+            // var interactable = GetComponent<IXRHoverInteractable>();
+            // interactable.hoverEntered.AddListener(Select);
+            // interactable.hoverExited.AddListener(Deselect);
         }
     
         internal void OnDisable()
