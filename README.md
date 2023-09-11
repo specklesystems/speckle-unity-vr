@@ -25,6 +25,7 @@ Currently working with OpenXR on Windows, Likely won't work out of the box for a
 You must have [Speckle Manager](https://speckle.systems/download/) installed with an [Speckle account](https://speckle.xyz/) setup.
 You should send some 3D data to Speckle from one of the other [supported connectors](https://speckle.systems/features/connectors/)
 
-Clone this repo, and open in Unity 2021 or 2022.
+See [Releases](https://github.com/specklesystems/speckle-unity-vr/releases) for project download or clone this repo, and open in Unity 2021 or 2022.
 
-Feel free to ask any questions on [our Forum](https://speckle.community/)_ 
+
+Feel free to ask any questions on [our Forum](https://speckle.community/)
